@@ -74,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(home);
 
                 }
-
+                //Wow, this is awesome
 
 
                 return false;
