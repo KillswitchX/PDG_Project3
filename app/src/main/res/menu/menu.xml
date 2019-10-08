@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Diagrams"
+        android:icon="@drawable/diagram"
+        android:id="@+id/menu_diagram"
+        />
+    <item android:title="Metrics"
+        android:icon="@drawable/metrics"
+        android:id="@+id/menu_metric"
+        />
+    <item android:title="Home"
+        android:icon="@drawable/home"
+        android:id="@+id/menu_home"
+        />
+    <item android:title="Clients"
+        android:icon="@drawable/client"
+        android:id="@+id/menu_client"
+        />
+    <item android:title="Planification"
+        android:icon="@drawable/money"
+        android:id="@+id/menu_planning"
+        />
+</menu>

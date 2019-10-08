@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4BCDDB</color>
+    <color name="colorPrimaryDark">#0095A9</color>
+    <color name="colorAccent">#016074</color>
+
+    <color name="cp">#016074</color>
+    <color name="cpd">#016074</color>
+    <color name="ca">#016074</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#464646</color>
+    <color name="bl">#A6E0FC</color>
+
+
+</resources>

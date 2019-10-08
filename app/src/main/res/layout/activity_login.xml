@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiant_background"
+    tools:context=".LoginActivity"
+    android:gravity="center"
+    android:layout_gravity="center"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/login_linear1"
+        android:layout_width="500dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:background="@drawable/dtedited"
+        android:backgroundTint="#161430"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please type your nickname:"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            ></TextView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/login_card_text"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="12dp"
+
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/user"
+                android:background="@color/colorAccent"
+                ></ImageView>
+            <EditText
+                android:id="@+id/login_et_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="60dp"
+                android:hint="    nickname      "
+                android:textSize="35sp"
+                android:layout_gravity="left"
+                android:textAlignment="center"
+                android:background="@color/white"
+
+                ></EditText>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/login_btn_login"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:textSize="35sp"
+            android:text="LOGIN"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded"
+            android:gravity="center"
+            ></Button>
+
+    </LinearLayout>
+
+</RelativeLayout>
