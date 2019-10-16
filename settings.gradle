@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':wekaSTRIPPED'
 rootProject.name='PDG_Project'

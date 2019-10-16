@@ -1,17 +1,22 @@
 package com.icesi.pdg_project;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.icesi.pdg_project.Model.WekaTest;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -38,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button btn_nextTurn;
 
+    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,29 +90,48 @@ public class HomeActivity extends AppCompatActivity {
 
 
         btn_nextTurn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
-                alertDialogBuilder.setTitle("Confirm Turn...");
-                alertDialogBuilder.setIcon(R.drawable.ic_exit);
-                alertDialogBuilder.setMessage("Are you sure you did finish your turn?" +"\n"+ "\n");
+                WekaTest weka = new WekaTest();
+                try {
+                    if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        Log.v("DDD","Permission is granted");
+                        weka.ejecution();
+                    } else {
 
-                alertDialogBuilder.setCancelable(false);
-
-                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                        Log.v("ddd","Permission is revoked");
+                        ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
                     }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
+//                alertDialogBuilder.setTitle("Confirm Turn...");
+//                alertDialogBuilder.setIcon(R.drawable.ic_exit);
+//                alertDialogBuilder.setMessage("Are you sure you did finish your turn?" +"\n"+ "\n");
+//
+//                alertDialogBuilder.setCancelable(false);
+//
+//                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                AlertDialog alertDialog = alertDialogBuilder.create();
+//                alertDialog.show();
             }
         });
 
