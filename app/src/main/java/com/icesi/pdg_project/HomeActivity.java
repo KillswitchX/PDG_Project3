@@ -90,48 +90,47 @@ public class HomeActivity extends AppCompatActivity {
 
 
         btn_nextTurn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                WekaTest weka = new WekaTest();
-                try {
-                    if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        Log.v("DDD","Permission is granted");
-                        weka.ejecution();
-                    } else {
+//                WekaTest weka = new WekaTest();
+//                try {
+//                    if (ActivityCompat.checkSelfPermission(HomeActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                            == PackageManager.PERMISSION_GRANTED) {
+//                        Log.v("DDD","Permission is granted");
+//                        weka.ejecution();
+//                    } else {
+//
+//                        Log.v("ddd","Permission is revoked");
+//                        ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//
+//                    }
+//
+//
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
+                alertDialogBuilder.setTitle("Confirm Turn...");
+                alertDialogBuilder.setIcon(R.drawable.ic_exit);
+                alertDialogBuilder.setMessage("Are you sure you did finish your turn?" +"\n"+ "\n");
 
-                        Log.v("ddd","Permission is revoked");
-                        ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                alertDialogBuilder.setCancelable(false);
+
+                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
+                });
+                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
-//                alertDialogBuilder.setTitle("Confirm Turn...");
-//                alertDialogBuilder.setIcon(R.drawable.ic_exit);
-//                alertDialogBuilder.setMessage("Are you sure you did finish your turn?" +"\n"+ "\n");
-//
-//                alertDialogBuilder.setCancelable(false);
-//
-//                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                AlertDialog alertDialog = alertDialogBuilder.create();
-//                alertDialog.show();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 

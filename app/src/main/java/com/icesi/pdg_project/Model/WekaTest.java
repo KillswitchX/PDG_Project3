@@ -86,6 +86,7 @@ public class WekaTest {
         tree.setBinarySplits(true);
         tree.setCollapseTree(true);
         tree.setUnpruned(false);
+        tree.setConfidenceFactor(0.000001f);
 
 
 
