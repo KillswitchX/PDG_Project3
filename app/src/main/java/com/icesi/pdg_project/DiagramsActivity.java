@@ -31,8 +31,8 @@ public class DiagramsActivity extends AppCompatActivity {
     private int nodeCount = 1;
     private BottomNavigationView navigation;
     //private CustomView cv;
-    private Spinner spinnerVariablesOne;
-    private Spinner spinnerVariablesTwo;
+//    private Spinner spinnerVariablesOne;
+//    private Spinner spinnerVariablesTwo;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -40,7 +40,7 @@ public class DiagramsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagrams);
 
-        TreeView treeView = findViewById(R.id.tree);
+        //TreeView treeView = findViewById(R.id.tree);
 
         BaseTreeAdapter adapter = new BaseTreeAdapter<ViewHolder>(this, R.layout.node) {
             @NonNull
@@ -54,7 +54,7 @@ public class DiagramsActivity extends AppCompatActivity {
                 viewHolder.mTextView.setText(data.toString());
             }
         };
-        treeView.setAdapter(adapter);
+        //treeView.setAdapter(adapter);
 
 
         // example tree
@@ -108,37 +108,37 @@ public class DiagramsActivity extends AppCompatActivity {
 
         //cv = findViewById(R.id.diagrams_cv);
 
-        findViewById(R.id.tv_insert_levelone).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //cv.swapColorLevelOne();
-                WekaTest weka = new WekaTest();
-                try {
-                    if (ActivityCompat.checkSelfPermission(DiagramsActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        Log.v("DDD","Permission is granted");
-                        weka.ejecution();
-                    } else {
-
-                        Log.v("ddd","Permission is revoked");
-                        ActivityCompat.requestPermissions(DiagramsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
-                    }
-
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        findViewById(R.id.tv_insert_leveltwo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //cv.swapColorLevelTwo();
-            }
-        });
+//        findViewById(R.id.tv_insert_levelone).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //cv.swapColorLevelOne();
+//                WekaTest weka = new WekaTest();
+//                try {
+//                    if (ActivityCompat.checkSelfPermission(DiagramsActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                            == PackageManager.PERMISSION_GRANTED) {
+//                        Log.v("DDD","Permission is granted");
+//                        weka.ejecution();
+//                    } else {
+//
+//                        Log.v("ddd","Permission is revoked");
+//                        ActivityCompat.requestPermissions(DiagramsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//
+//                    }
+//
+//
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        findViewById(R.id.tv_insert_leveltwo).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //cv.swapColorLevelTwo();
+//            }
+//        });
 
         navigation= findViewById(R.id.diagrams_navigation);
 
@@ -171,12 +171,12 @@ public class DiagramsActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.diagrams_btn_sg).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"All sub-groups were successfully created",Toast.LENGTH_LONG).show();
-            }
-        });
+//        findViewById(R.id.diagrams_btn_sg).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(),"All sub-groups were successfully created",Toast.LENGTH_LONG).show();
+//            }
+//        });
 
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -200,12 +200,12 @@ public class DiagramsActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        spinnerVariablesOne = findViewById(R.id.diagrams_spinner_levelone);
-        spinnerVariablesTwo = findViewById(R.id.diagrams_spinner_leveltwo);
+//        spinnerVariablesOne = findViewById(R.id.diagrams_spinner_levelone);
+//        spinnerVariablesTwo = findViewById(R.id.diagrams_spinner_leveltwo);
         String[] segments = {"College", "Income", "Overage per month", "House", "Handset Price, Calls over 15 min per month",
                 "Average call duration", "Reported satisfaction level", "Reported usage level"};
-        spinnerVariablesOne.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, segments));
-        spinnerVariablesTwo.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, segments));
+//        spinnerVariablesOne.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, segments));
+//        spinnerVariablesTwo.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, segments));
 
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
