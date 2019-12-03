@@ -8,12 +8,20 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,17 +30,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.icesi.pdg_project.Model.WekaTest;
 import com.icesi.pdg_project.View.ViewHolder;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.IOException;
+
 import de.blox.treeview.BaseTreeAdapter;
 import de.blox.treeview.TreeNode;
 import de.blox.treeview.TreeView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class DiagramsActivity extends AppCompatActivity {
 
     private int nodeCount = 1;
     private BottomNavigationView navigation;
-    //private CustomView cv;
-//    private Spinner spinnerVariablesOne;
-//    private Spinner spinnerVariablesTwo;
+    private Button generateTree;
+    private ImageView image_tree;
+    private EditText text_level;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -40,105 +61,9 @@ public class DiagramsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagrams);
 
-        //TreeView treeView = findViewById(R.id.tree);
-
-        BaseTreeAdapter adapter = new BaseTreeAdapter<ViewHolder>(this, R.layout.node) {
-            @NonNull
-            @Override
-            public ViewHolder onCreateViewHolder(View view) {
-                return new ViewHolder(view);
-            }
-
-            @Override
-            public void onBindViewHolder(ViewHolder viewHolder, Object data, int position) {
-                viewHolder.mTextView.setText(data.toString());
-            }
-        };
-        //treeView.setAdapter(adapter);
-
-
-        // example tree
-        TreeNode rootNode = new TreeNode("N0" + "\n" + "Fix this algorithm" );
-        final TreeNode n1 = new TreeNode("N1 Fix this algorithm" + "\n" + "<= 603802");
-//        final TreeNode n6 = new TreeNode("N6 INCOME" + "\n" + "> 603802");
-//
-//
-//        final TreeNode n2 = new TreeNode("N2 LEFTOVER" + "\n" + "<= 85");
-//        final TreeNode n5 = new TreeNode("N5 LEAVE (1066.0/244.0)" + "\n" + "> 85");
-//
-//        n1.addChild(n2);
-//        n1.addChild(n5);
-//
-//        final TreeNode n3 = new TreeNode("N3 HOUSE" + "\n" + "<= 24");
-//        final TreeNode n4 = new TreeNode("N4 HOUSE" + "\n" + "> 24");
-//
-//        n2.addChild(n3);
-//        n2.addChild(n4);
-//
-//        final TreeNode n7 = new TreeNode("N7 STAY (1023.0/208.0)" + "\n" + "<= 100437");
-//        final TreeNode n8 = new TreeNode("N8 OVERAGE" + "\n" + "> 100437");
-//
-//        n6.addChild(n7);
-//        n6.addChild(n8);
-//
-//        final TreeNode n9 = new TreeNode("N9 STAY (323.0/149.0)" + "\n" + "<= 148");
-//        final TreeNode n10 = new TreeNode("N10 LEAVE (144.0/36.0)" + "\n" + "> 148");
-//
-//        n8.addChild(n9);
-//        n8.addChild(n10);
-
-        rootNode.addChild(n1);
-        //rootNode.addChild(n6);
-
-//        final TreeNode child3 = new TreeNode(getNodeText());
-//        child3.addChild(new TreeNode(getNodeText()));
-//        final TreeNode child6 = new TreeNode(getNodeText());
-//        child6.addChild(new TreeNode(getNodeText()));
-//        child6.addChild(new TreeNode(getNodeText()));
-//        child3.addChild(child6);
-//        rootNode.addChild(child3);
-//        final TreeNode child4 = new TreeNode(getNodeText());
-//        child4.addChild(new TreeNode(getNodeText()));
-//        child4.addChild(new TreeNode(getNodeText()));
-//        rootNode.addChild(child4);
-
-        adapter.setRootNode(rootNode);
-
-
-
-        //cv = findViewById(R.id.diagrams_cv);
-
-//        findViewById(R.id.tv_insert_levelone).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //cv.swapColorLevelOne();
-//                WekaTest weka = new WekaTest();
-//                try {
-//                    if (ActivityCompat.checkSelfPermission(DiagramsActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                            == PackageManager.PERMISSION_GRANTED) {
-//                        Log.v("DDD","Permission is granted");
-//                        weka.ejecution();
-//                    } else {
-//
-//                        Log.v("ddd","Permission is revoked");
-//                        ActivityCompat.requestPermissions(DiagramsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//
-//                    }
-//
-//
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//
-//        findViewById(R.id.tv_insert_leveltwo).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //cv.swapColorLevelTwo();
-//            }
-//        });
+        generateTree = findViewById(R.id.btn_generate_tree);
+        image_tree = findViewById(R.id.image_tree);
+        text_level = findViewById(R.id.txt_levels);
 
         navigation= findViewById(R.id.diagrams_navigation);
 
@@ -171,12 +96,16 @@ public class DiagramsActivity extends AppCompatActivity {
             }
         });
 
-//        findViewById(R.id.diagrams_btn_sg).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(),"All sub-groups were successfully created",Toast.LENGTH_LONG).show();
-//            }
-//        });
+        generateTree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    run(Integer.parseInt(text_level.getText().toString()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -197,6 +126,62 @@ public class DiagramsActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         initView();
+    }
+
+    public void run(int numberOfLevels) throws IOException {
+        String ipv4Address = "http://18.222.220.36";
+        String portNumber = "8082";
+
+        String serverURL= ipv4Address+":"+portNumber+"/"+"get_tree?level="+numberOfLevels;
+        //?var=" + variable;
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard,"Download/"+"churn.csv");
+
+        if(file.exists()){
+            OkHttpClient client = new OkHttpClient();
+            RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("file", file.getName(),
+                            RequestBody.create(MediaType.parse("text/csv"), file))
+                    .build();
+
+
+            Request request = new Request.Builder()
+                    .url(serverURL)
+                    .post(requestBody)
+                    .build();
+
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Log.i("ERROR: " , e.getMessage());
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    if (response.isSuccessful()){
+                        final Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                        // Remember to set the bitmap in the main thread.
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Bitmap resized = Bitmap.createScaledBitmap(bitmap, 500, 300, true);
+                                image_tree.setImageBitmap(resized);
+                            }
+                        });
+                    }else {
+                        //Handle the error
+                    }
+                }
+            });
+        }
+        else{
+            Log.i("FILE DOES NOT EXITS: " , "XD");
+        }
+
+
+
     }
 
     private void initView() {

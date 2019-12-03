@@ -144,6 +144,7 @@ public class MetricsActivity extends AppCompatActivity  {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
+        initView();
 
     }
 
@@ -156,7 +157,7 @@ public class MetricsActivity extends AppCompatActivity  {
     @Override
     protected void onResume(){
         super.onResume();
-        initView();
+
     }
 
     private void initView() {
