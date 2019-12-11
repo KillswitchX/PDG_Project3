@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.QuickContactBadge;
 import android.widget.Toast;
 
+import com.fxn.stash.Stash;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginButton;
@@ -23,7 +25,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Stash.init(this);
+        Stash.put("turn", 1);
+        Stash.put("money", 1700);
         editTextLogin = findViewById(R.id.login_et_nickname);
         loginButton = findViewById(R.id.login_btn_login);
 

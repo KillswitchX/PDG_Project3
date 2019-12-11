@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fxn.stash.Stash;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.icesi.pdg_project.View.Adapter_Planification;
 import com.icesi.pdg_project.View.Item_Plan;
@@ -130,8 +132,17 @@ public class PlanificationActivity extends AppCompatActivity implements Serializ
                 Item_Plan newItem = new Item_Plan(var, value);
                 items.add(newItem);
                 adapter.notifyDataSetChanged();
-                cost+=20;
+                cost+=300;
                 textView_cost.setText("$ " + cost);
+            }
+        });
+
+        invest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int tempMoney = Stash.getInt("money");
+                Stash.put("money", tempMoney - cost);
+                Toast.makeText(PlanificationActivity.this, "You have invested: $" + cost + "Successfully.", Toast.LENGTH_LONG).show();
             }
         });
 

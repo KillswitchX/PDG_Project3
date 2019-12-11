@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fxn.stash.Stash;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.icesi.pdg_project.Model.WekaTest;
 import com.luseen.spacenavigation.SpaceItem;
@@ -44,6 +45,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button btn_nextTurn;
 
+    private int turn;
+
+    private int money;
+
     @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,9 @@ public class HomeActivity extends AppCompatActivity {
 
         navigation = findViewById(R.id.home_navigation);
         btn_nextTurn = findViewById(R.id.btn_next_turn);
+
+        turn= Stash.getInt("turn");
+        money = Stash.getInt("money");
 
         navigation.setSelectedItemId(R.id.menu_home);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -113,14 +121,20 @@ public class HomeActivity extends AppCompatActivity {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
                 alertDialogBuilder.setTitle("Confirm Turn...");
                 alertDialogBuilder.setIcon(R.drawable.ic_exit);
-                alertDialogBuilder.setMessage("Are you sure you did finish your turn?" +"\n"+ "\n");
+                alertDialogBuilder.setMessage("Are you sure you want to finish your turn?" +"\n"+ "\n");
 
                 alertDialogBuilder.setCancelable(false);
 
                 alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        int tempTurn = Stash.getInt("turn");
+                        int tempMoney = Stash.getInt("money");
+                        Stash.put("turn", tempTurn + 1);
+                        Stash.put("money", tempMoney + 700);
 
+                        setTurn(Stash.getInt("turn"));
+                        setMoney(Stash.getInt("money"));
                     }
                 });
                 alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -150,9 +164,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        setMoney(2000);
-        setClients(100);
-        setTurn(1);
+        setMoney(money);
+        setClients(700);
+        setTurn(turn);
 
     }
 
