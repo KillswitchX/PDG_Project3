@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.icesi.pdg_project.Model.WekaTest;
 import com.icesi.pdg_project.View.ViewHolder;
+import com.ortiz.touchview.TouchImageView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +53,7 @@ public class DiagramsActivity extends AppCompatActivity {
     private int nodeCount = 1;
     private BottomNavigationView navigation;
     private Button generateTree;
-    private ImageView image_tree;
+    private TouchImageView image_tree;
     private EditText text_level;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -166,7 +167,7 @@ public class DiagramsActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                Bitmap resized = Bitmap.createScaledBitmap(bitmap, 500, 300, true);
+                                Bitmap resized = Bitmap.createScaledBitmap(bitmap, 2000, 1000, true);
                                 image_tree.setImageBitmap(resized);
                             }
                         });

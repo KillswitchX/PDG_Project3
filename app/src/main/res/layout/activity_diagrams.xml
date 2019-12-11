@@ -34,27 +34,7 @@
             android:background="@color/white"
             android:inputType="number"
             ></EditText>
-        <!--
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Accuracy: 0.632%"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            >
 
-        </TextView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kappa: 0.267"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            >
-            </TextView>
-           -->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,18 +46,17 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/image_tree"
-        android:layout_below="@id/container"
-        android:layout_above="@id/diagrams_navigation"
-        >
-        <!--android:src="@drawable/index"-->
 
+        <com.ortiz.touchview.TouchImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/image_tree"
+            android:layout_below="@id/container"
+            android:layout_above="@id/diagrams_navigation"
+            >
 
+        </com.ortiz.touchview.TouchImageView>
 
-    </ImageView>
 
     <!--
     <com.icesi.pdg_project.View.CustomView

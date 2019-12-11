@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import android.os.Environment;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,9 +24,16 @@ import com.icesi.pdg_project.Entity.Client;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
+import com.opencsv.CSVReader;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ClientsInfo extends AppCompatActivity {
 
@@ -97,10 +106,17 @@ public class ClientsInfo extends AppCompatActivity {
         segmentedClients = new HashMap<>();
 
         segmentedClients.put("clients", clients);
-
-        initTestClients();
         initView();
-        fillDataIntoTable(clients);
+
+
+        ClientsInfo.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                initTestClients();
+            }
+        });
+
+        //fillDataIntoTable(clients);
 
     }
 
@@ -113,218 +129,146 @@ public class ClientsInfo extends AppCompatActivity {
 
 
     private void initTestClients() {
-        Client client = new Client();
 
-        client.setCollege("zero");
-        client.setIncome(31953);
-        client.setOverage(0);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+        try {
+            File sdcard = Environment.getExternalStorageDirectory();
+            File file = new File(sdcard,"Download/"+"churn.csv");
+            CSVReader reader = new CSVReader(new FileReader(file));
+            String[] nextLine;
+            int i=0;
+            nextLine = reader.readNext();
+            //Log.e(">>>>>>>> 2 ", nextLine[0]);
 
-        clients.add(client);
+            while ((nextLine = reader.readNext()) != null) {
+                //Client client = new Client();
+                //Log.e(">>>>>>>> 1 ", nextLine[0]);
 
-        client = new Client();
-        client.setCollege("one");
-        client.setIncome(40000);
-        client.setOverage(5);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(3);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                String[] line = nextLine[0].split(";");
+                if(line.length>2){
 
-        clients.add(client);
+                    TableRow tableRow = new TableRow(this);
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(
+                            TableRow.LayoutParams.MATCH_PARENT,
+                            TableRow.LayoutParams.WRAP_CONTENT));
 
-        client = new Client();
-        client.setCollege("zero");
-        client.setIncome(35666);
-        client.setOverage(10);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    int y=0;
+                    // Colege
+                    TextView textViewCollege = new TextView(this);
+                    textViewCollege.setText(line[y]);
 
-        clients.add(client);
+                    textViewCollege.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewCollege);
 
-        client = new Client();
-        client.setCollege("one");
-        client.setIncome(38600);
-        client.setOverage(15);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(3);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // Income
+                    TextView textViewIncome = new TextView(this);
+                    textViewIncome.setText(line[y]);
 
-        clients.add(client);
+                    textViewIncome.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewIncome);
 
-        client = new Client();
-        client.setCollege("zero");
-        client.setIncome(27596);
-        client.setOverage(20);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // Overage
+                    TextView textViewOverage = new TextView(this);
+                    textViewOverage.setText(line[y]);
 
-        clients.add(client);
+                    textViewOverage.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewOverage);
 
-        client = new Client();
-        client.setCollege("one");
-        client.setIncome(33614);
-        client.setOverage(25);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // LeftOver
+                    TextView textViewLeftover = new TextView(this);
+                    textViewLeftover.setText(line[y]);
 
-        clients.add(client);
+                    textViewLeftover.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewLeftover);
 
-        client = new Client();
-        client.setCollege("zero");
-        client.setIncome(42371);
-        client.setOverage(30);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // House
+                    TextView textViewHouse = new TextView(this);
+                    textViewHouse.setText(line[y]);
 
-        clients.add(client);
+                    textViewHouse.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewHouse);
 
-        client = new Client();
-        client.setCollege("one");
-        client.setIncome(29964);
-        client.setOverage(35);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // Handset Price
+                    TextView textViewHandsetPrice = new TextView(this);
+                    textViewHandsetPrice.setText(line[y]);
 
-        clients.add(client);
+                    textViewHandsetPrice.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewHandsetPrice);
 
-        client = new Client();
-        client.setCollege("zero");
-        client.setIncome(42587);
-        client.setOverage(40);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // Average calls Over 15 minutes
+                    TextView textViewOver15 = new TextView(this);
+                    textViewOver15.setText(line[y]);
 
-        clients.add(client);
+                    textViewOver15.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewOver15);
 
-        client = new Client();
-        client.setCollege("one");
-        client.setIncome(46300);
-        client.setOverage(45);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // Average Call Duration
+                    TextView textViewAverageCallDuration = new TextView(this);
+                    textViewAverageCallDuration.setText(line[y]);
 
-        clients.add(client);
+                    textViewAverageCallDuration.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewAverageCallDuration);
 
-        client = new Client();
-        client.setCollege("zero");
-        client.setIncome(49860);
-        client.setOverage(50);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // Reported Satisfaction
+                    TextView textViewReportedSatisfaction = new TextView(this);
+                    textViewReportedSatisfaction.setText(line[y]);
 
-        clients.add(client);
+                    textViewReportedSatisfaction.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewReportedSatisfaction);
 
-        client = new Client();
-        client.setCollege("one");
-        client.setIncome(47645);
-        client.setOverage(55);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    y++;
+                    // Reported Usage Level
+                    TextView textViewReportedUsageLevel = new TextView(this);
+                    textViewReportedUsageLevel.setText(line[y]);
 
-        clients.add(client);
+                    textViewReportedUsageLevel.setPadding(15, 5, 5, 0);
+                    tableRow.addView(textViewReportedUsageLevel);
 
-        client = new Client();
-        client.setCollege("zero");
-        client.setIncome(42331);
-        client.setOverage(60);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+//                    int y=0;
+//                    client.setCollege(line[y]);
+//                    y++;
+//                    client.setIncome(Integer.parseInt(line[y]));
+//                    y++;
+//                    client.setOverage(Integer.parseInt(line[y]));
+//                    y++;
+//                    client.setLeftover(Integer.parseInt(line[y]));
+//                    y++;
+//                    client.setHouse(Integer.parseInt(line[y]));
+//                    y++;
+//                    client.setHandsetPrice(Integer.parseInt(line[y]));
+//                    y++;
+//                    client.setOver15(Integer.parseInt(line[y]));
+//                    y++;
+//                    client.setAverageCallDuration(Integer.parseInt(line[y]));
+//                    y++;
+//                    client.setReportedSatisfaction(line[y]);
+//                    y++;
+//                    client.setReportedUsageLevel(line[y]);
 
-        clients.add(client);
+//                    clients.add(client);
 
-        client = new Client();
-        client.setCollege("one");
-        client.setIncome(36451);
-        client.setOverage(65);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
+                    tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                            TableRow.LayoutParams.FILL_PARENT,
+                            TableRow.LayoutParams.WRAP_CONTENT));
 
-        clients.add(client);
-
-        client = new Client();
-        client.setCollege("zero");
-        client.setIncome(31930);
-        client.setOverage(70);
-        client.setLeftover(6);
-        client.setHouse(313378);
-        client.setHandsetPrice(161);
-        client.setOver15(0);
-        client.setAverageCallDuration(4);
-        client.setReportedSatisfaction("unsat");
-        client.setReportedUsageLevel("little");
-
-        clients.add(client);
+                }
 
 
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+          catch (IOException x){
+              x.printStackTrace();
+          }
 
     }
 

@@ -37,6 +37,7 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
+import com.ortiz.touchview.TouchImageView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -61,7 +62,7 @@ public class MetricsActivity extends AppCompatActivity  {
     };
 
     private BottomNavigationView navigation;
-    private ImageView imageView;
+    private TouchImageView imageView;
     private Spinner spinner_metrics;
     //private GraphView graph;
 
@@ -162,8 +163,8 @@ public class MetricsActivity extends AppCompatActivity  {
 
     private void initView() {
 
-        String[] segments = {"COLLEGE", "INCOME", "OVERAGE", "HOUSE","LEFTOVER", "HANDSET_PRICE, OVER_15_MIN_PER_MONTH",
-                "AVERAGE_CALL_DURATION", "REPORTED_SATISFACTION", "REPORTED_USAGE_LEVEL"};
+        String[] segments = {"COLLEGE", "INCOME", "OVERAGE","LEFTOVER", "HOUSE", "HANDSET_PRICE", "OVER_15MINS_CALLS_PER_MONTH",
+                "AVERAGE_CALL_DURATION", "REPORTED_SATISFACTION", "REPORTED_USAGE_LEVEL", "CONSIDERING_CHANGE_OF_PLAN"};
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MetricsActivity.this,
@@ -219,7 +220,7 @@ public class MetricsActivity extends AppCompatActivity  {
                             @Override
                             public void run() {
 
-                                Bitmap resized = Bitmap.createScaledBitmap(bitmap, 500, 300, true);
+                                Bitmap resized = Bitmap.createScaledBitmap(bitmap, 2000, 1000, true);
                                 imageView.setImageBitmap(resized);
                             }
                         });

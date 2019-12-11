@@ -1,21 +1,21 @@
 package com.icesi.pdg_project.Model;
 
-import android.content.Context;
-import android.os.Environment;
-import android.provider.CalendarContract;
-import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
-import weka.classifiers.Classifier;
-import weka.classifiers.Evaluation;
-import weka.classifiers.evaluation.NominalPrediction;
-import weka.classifiers.trees.J48;
-import weka.core.FastVector;
-import weka.core.Instances;
+//import android.content.Context;
+//import android.os.Environment;
+//import android.provider.CalendarContract;
+//import android.util.Log;
+//
+//import java.io.BufferedReader;
+//import java.io.File;
+//import java.io.FileNotFoundException;
+//import java.io.FileReader;
+//
+//import weka.classifiers.Classifier;
+//import weka.classifiers.Evaluation;
+//import weka.classifiers.evaluation.NominalPrediction;
+//import weka.classifiers.trees.J48;
+//import weka.core.FastVector;
+//import weka.core.Instances;
 
 public class WekaTest {
 //

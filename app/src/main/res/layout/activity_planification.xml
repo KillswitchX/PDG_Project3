@@ -6,6 +6,126 @@
     android:layout_height="match_parent"
     tools:context=".PlanificationActivity">
 
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:id="@+id/linear_planification"
+        android:background="@color/colorAccent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Variable: "
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            ></TextView>
+
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_planification"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            ></Spinner>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value: "
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            ></TextView>
+
+        <EditText
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:id="@+id/et_value_planification"
+            ></EditText>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/btn_planification_add"
+            android:background="@drawable/rounded"
+            ></Button>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_planification"
+        android:layout_above="@id/linear_planification_below_xd"
+        android:id="@+id/recycler_view"
+        ></androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_planification_below_xd"
+        android:orientation="horizontal"
+        android:layout_above="@id/planification_navigation"
+        android:gravity="center"
+        android:foregroundGravity="center"
+        android:layout_centerHorizontal="true"
+        >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/cardView_planification"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="20sp"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cost:"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginLeft="2dp"
+                ></TextView>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="$ 0"
+                android:id="@+id/planification_cost"
+                android:textSize="20sp"
+                ></TextView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_dark"
+                android:text="Invest"
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/planification_invest"
+                android:layout_marginRight="2dp"
+                ></Button>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 
 
