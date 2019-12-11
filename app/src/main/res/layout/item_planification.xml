@@ -46,6 +46,15 @@
             android:layout_height="wrap_content"
             android:textSize="21sp"
             android:textStyle="bold"
+            android:id="@+id/item_planification_symbol"
+            android:layout_marginLeft="10dp"
+            ></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:textStyle="bold"
             android:text="Value: "
             android:layout_marginLeft="10dp"
             ></TextView>

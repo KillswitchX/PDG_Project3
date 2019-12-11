@@ -6,10 +6,21 @@ public class Item_Plan implements Serializable {
 
     private String variable;
 
+    private String symbol;
+
     private String value;
 
-    public Item_Plan(String variable, String value){
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public Item_Plan(String variable, String symbol, String value){
         this.variable=variable;
+        this.symbol=symbol;
         this.value=value;
 
     }

@@ -46,6 +46,7 @@ public class Adapter_Planification extends RecyclerView.Adapter<Adapter_Planific
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ((TextView) holder.root.findViewById(R.id.item_planification_var)).setText(items.get(position).getVariable());
+        ((TextView) holder.root.findViewById(R.id.item_planification_symbol)).setText(items.get(position).getSymbol());
         ((TextView) holder.root.findViewById(R.id.item_planification_value)).setText(items.get(position).getValue());
     }
 

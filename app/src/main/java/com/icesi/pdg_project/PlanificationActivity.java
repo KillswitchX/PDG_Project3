@@ -35,6 +35,8 @@ public class PlanificationActivity extends AppCompatActivity implements Serializ
 
     private Spinner variables;
 
+    private Spinner symbols;
+
     private EditText et_value;
 
     private RecyclerView recyclerView;
@@ -65,6 +67,7 @@ public class PlanificationActivity extends AppCompatActivity implements Serializ
         variables = findViewById(R.id.spinner_planification);
         invest = findViewById(R.id.planification_invest);
         textView_cost = findViewById(R.id.planification_cost);
+        symbols = findViewById(R.id.spinner_symbols);
         cost=0;
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -123,13 +126,21 @@ public class PlanificationActivity extends AppCompatActivity implements Serializ
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         variables.setAdapter(adapter);
 
+        String[] symbolsArray = {"=", ">", "<"};
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(PlanificationActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, symbolsArray);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        symbols.setAdapter(adapter2);
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String var = variables.getSelectedItem().toString();
                 String value = et_value.getText().toString() +"";
+                String sym = symbols.getSelectedItem().toString();
 
-                Item_Plan newItem = new Item_Plan(var, value);
+                Item_Plan newItem = new Item_Plan(var, sym, value);
                 items.add(newItem);
                 adapter.notifyDataSetChanged();
                 cost+=300;

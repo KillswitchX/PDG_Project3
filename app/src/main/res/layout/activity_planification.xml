@@ -7,7 +7,7 @@
     tools:context=".PlanificationActivity">
 
     <LinearLayout
-        android:layout_width="500dp"
+        android:layout_width="550dp"
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:id="@+id/linear_planification"
@@ -26,9 +26,17 @@
             ></TextView>
 
         <Spinner
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_planification"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            ></Spinner>
+
+        <Spinner
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_symbols"
             android:textSize="20sp"
             android:textColor="@color/white"
             ></Spinner>
@@ -40,6 +48,8 @@
             android:textSize="20sp"
             android:textColor="@color/white"
             ></TextView>
+
+
 
         <EditText
             android:layout_width="120dp"
