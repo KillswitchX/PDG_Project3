@@ -49,6 +49,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private int money;
 
+    private int clients;
+
     @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
 
         turn= Stash.getInt("turn");
         money = Stash.getInt("money");
+        clients = Stash.getInt("clients");
 
         navigation.setSelectedItemId(R.id.menu_home);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -130,11 +133,14 @@ public class HomeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         int tempTurn = Stash.getInt("turn");
                         int tempMoney = Stash.getInt("money");
+                        int tempClients = Stash.getInt("clients");
                         Stash.put("turn", tempTurn + 1);
                         Stash.put("money", tempMoney + 700);
+                        Stash.put("clients", tempClients - 68);
 
                         setTurn(Stash.getInt("turn"));
                         setMoney(Stash.getInt("money"));
+                        setClients(Stash.getInt("clients"));
                     }
                 });
                 alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -165,7 +171,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
 
         setMoney(money);
-        setClients(700);
+        setClients(clients);
         setTurn(turn);
 
     }

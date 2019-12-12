@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         Stash.init(this);
         Stash.put("turn", 1);
         Stash.put("money", 1700);
+        Stash.put("clients", 700);
         editTextLogin = findViewById(R.id.login_et_nickname);
         loginButton = findViewById(R.id.login_btn_login);
 
