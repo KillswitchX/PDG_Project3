@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="700dp"
+    android:layout_height="match_parent"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:gravity="center"
+    >
+
+    <ImageView
+        android:id="@+id/btn_close_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="7dp"
+        android:elevation="5dp"
+        android:layout_alignParentRight="true"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="Variables"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    ></TextView>
+
+                <TextView
+                    android:layout_gravity="left"
+                    android:layout_width="700dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:scrollbars="horizontal"
+                    android:id="@+id/textView_info"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="10dp"
+                    android:text="
+                    College: Is the customer college educated?\n
+                    Income: Average overcharges per month\n
+                    Leftover : Average % leftover minutes per month\n
+                    House : Value of dwelling (from census tract)\n
+                    Handset price : Cost of phone\n
+                    Over 15 minutes calls per moth : Average number calls(>15 mins) per month\n
+                    Average call duration : Average call duration\n
+                    Reported satisfaction : Reported level of satisfaction\n
+                    Reported usage level : Self-reported usage level\n
+                    Considering change of plan : Was customer considering changing his/her plan?\n
+                    Leave : Class variable: whether customer left or stayed\n
+                    "
+                    ></TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

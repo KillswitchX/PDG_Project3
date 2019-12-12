@@ -6,6 +6,8 @@
     android:orientation="horizontal">
 
 
+
+
     <LinearLayout
         android:id="@+id/clients_linear_ID"
         android:layout_width="match_parent"
@@ -14,18 +16,23 @@
         android:orientation="vertical"
         >
 
-        <Spinner
-            android:id="@+id/clients_spinner_chooser"
+        <Button
+            android:id="@+id/clients_info_buttonr"
+            android:background="@drawable/rounded"
+            android:text="Info about clients"
+            android:padding="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center|top"
             android:layout_marginBottom="10dp"
-            
+
             >
 
 
-        </Spinner>
+
+
+        </Button>
 
 
 

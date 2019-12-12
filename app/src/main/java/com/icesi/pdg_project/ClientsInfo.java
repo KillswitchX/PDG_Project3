@@ -3,16 +3,22 @@ package com.icesi.pdg_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import android.os.Environment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -41,11 +47,17 @@ public class ClientsInfo extends AppCompatActivity {
 
     private TableLayout tableLayout;
 
-    private Spinner spinnerClients;
-
     private HashMap<String, ArrayList<Client>> segmentedClients;
 
     private BottomNavigationView navigation;
+
+    private Button btnInfo;
+
+    public Dialog dialogInfo;
+
+    public ImageView closeDialog;
+
+    public TextView textViewInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +65,9 @@ public class ClientsInfo extends AppCompatActivity {
         setContentView(R.layout.activity_clients_info);
 
         tableLayout = (TableLayout) findViewById(R.id.tableLayoutClients);
-        spinnerClients = findViewById(R.id.clients_spinner_chooser);
         navigation = findViewById(R.id.metrics_navigation);
+        btnInfo = findViewById(R.id.clients_info_buttonr);
+        dialogInfo = new Dialog(this);
 
         createColumns();
 
@@ -96,6 +109,14 @@ public class ClientsInfo extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup();
+            }
+        });
     }
 
     @Override
@@ -106,7 +127,7 @@ public class ClientsInfo extends AppCompatActivity {
         segmentedClients = new HashMap<>();
 
         segmentedClients.put("clients", clients);
-        initView();
+
 
 
         ClientsInfo.this.runOnUiThread(new Runnable() {
@@ -121,11 +142,7 @@ public class ClientsInfo extends AppCompatActivity {
     }
 
 
-    private void initView() {
 
-        String[] segments = {" Clients ", " SegmentA ", " SegmentB "};
-        spinnerClients.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, segments));
-    }
 
 
     private void initTestClients() {
@@ -271,6 +288,8 @@ public class ClientsInfo extends AppCompatActivity {
           }
 
     }
+
+
 
     private void createColumns() {
         TableRow tableRow = new TableRow(this);
@@ -460,5 +479,26 @@ public class ClientsInfo extends AppCompatActivity {
     public void onBackPressed() {
         Intent homeIntent = new Intent(ClientsInfo.this, HomeActivity.class);
         startActivity(homeIntent);
+    }
+
+    private void showPopup(){
+
+        dialogInfo.setContentView(R.layout.info_popup);
+        closeDialog = (ImageView) dialogInfo.findViewById(R.id.btn_close_info);
+        textViewInfo = (TextView) dialogInfo.findViewById(R.id.textView_info);
+        textViewInfo.setMovementMethod(new ScrollingMovementMethod());
+
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogInfo.dismiss();
+            }
+        });
+
+
+        dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogInfo.show();
+
+
     }
 }

@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -53,8 +56,13 @@ public class DiagramsActivity extends AppCompatActivity {
     private int nodeCount = 1;
     private BottomNavigationView navigation;
     private Button generateTree;
+    private Button getData;
     private TouchImageView image_tree;
     private EditText text_level;
+
+    public Dialog dialogData;
+    public ImageView closeData;
+    public TextView dataTree;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -63,10 +71,12 @@ public class DiagramsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diagrams);
 
         generateTree = findViewById(R.id.btn_generate_tree);
+        getData = findViewById(R.id.btn_generate_data);
         image_tree = findViewById(R.id.image_tree);
         text_level = findViewById(R.id.txt_levels);
 
         navigation= findViewById(R.id.diagrams_navigation);
+        dialogData = new Dialog(this);
 
         navigation.setSelectedItemId(R.id.menu_diagram);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -103,6 +113,17 @@ public class DiagramsActivity extends AppCompatActivity {
                 try {
                     run(Integer.parseInt(text_level.getText().toString()));
                 } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        getData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    getDataFromTree(Integer.parseInt(text_level.getText().toString()));
+                }catch(IOException e){
                     e.printStackTrace();
                 }
             }
@@ -181,7 +202,57 @@ public class DiagramsActivity extends AppCompatActivity {
             Log.i("FILE DOES NOT EXITS: " , "XD");
         }
 
+    }
 
+    public void getDataFromTree(int numberOfLevels) throws IOException {
+        String ipv4Address = "http://18.222.220.36";
+        String portNumber = "8082";
+
+        String serverURL= ipv4Address+":"+portNumber+"/"+"get_data_tree?level="+numberOfLevels;
+        //?var=" + variable;
+        File sdcard = Environment.getExternalStorageDirectory();
+        File file = new File(sdcard,"Download/"+"churn.csv");
+
+        if(file.exists()){
+            OkHttpClient client = new OkHttpClient();
+            RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("file", file.getName(),
+                            RequestBody.create(MediaType.parse("text/csv"), file))
+                    .build();
+
+
+            Request request = new Request.Builder()
+                    .url(serverURL)
+                    .post(requestBody)
+                    .build();
+
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Log.i("ERROR: " , e.getMessage());
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    if (response.isSuccessful()){
+                        final String data = response.body().string();
+                        // Remember to set the bitmap in the main thread.
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                showPopup(data);
+                            }
+                        });
+                    }else {
+                        //Handle the error
+                    }
+                }
+            });
+        }
+        else{
+            Log.i("FILE DOES NOT EXITS: " , "XD");
+        }
 
     }
 
@@ -203,8 +274,28 @@ public class DiagramsActivity extends AppCompatActivity {
 
     }
 
-    private String getNodeText() {
-        return "Node " + nodeCount++;
+
+    private void showPopup(String text){
+
+        dialogData.setContentView(R.layout.epic_popup);
+        closeData = (ImageView) dialogData.findViewById(R.id.btn_close);
+        dataTree = (TextView) dialogData.findViewById(R.id.textView_data_tree_popup);
+        dataTree.setText(text);
+
+        closeData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogData.dismiss();
+            }
+        });
+
+
+
+
+        dialogData.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogData.show();
+
+
     }
 
 }

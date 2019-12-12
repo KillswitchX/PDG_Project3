@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context=".MetricsActivity"
     android:id="@+id/metrics">
 
@@ -17,15 +16,15 @@
             -->
         <com.ortiz.touchview.TouchImageView
             android:id="@+id/image_metrics"
-            android:layout_width="500dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/metrics_navigation"
             android:layout_below="@id/container"
             />
 
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/container"
